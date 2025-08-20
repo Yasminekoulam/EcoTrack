@@ -56,8 +56,6 @@ public class UserGoalServiceImpl implements UserGoalService {
 
         User user = userRepository.findById(userGoalDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + userGoalDTO.getUserId()));
-
-        user.getGoals().remove(userGoal);
         userGoal.setUser(user);
 
         userGoal.setStartDate(userGoalDTO.getStartDate());
@@ -65,7 +63,6 @@ public class UserGoalServiceImpl implements UserGoalService {
         userGoal.setGoalAchieved(userGoalDTO.isGoalAchieved());
         userGoal.setEmissionTarget(userGoalDTO.getEmissionTarget());
 
-        user.getGoals().add(userGoal);
         return new UserGoalDTO(userGoalRepository.save(userGoal));
 
 

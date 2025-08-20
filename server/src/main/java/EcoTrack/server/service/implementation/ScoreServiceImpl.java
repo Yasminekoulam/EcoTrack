@@ -49,15 +49,9 @@ public class ScoreServiceImpl implements ScoreService {
         score.setQualitativeScore(scoreDTO.getQualitativeScore());
         score.setTotalco2(scoreDTO.getTotalco2());
 
-        User oldUser = score.getUser();
-
-        if(!oldUser.getId().equals(scoreDTO.getUserId())) {
-            oldUser.getScores().remove(score);
-            User user = userRepository.findById(scoreDTO.getUserId())
-                    .orElseThrow(() -> new NotFoundException("User not found with : " + scoreDTO.getUserId()));
-            score.setUser(user);
-            user.getScores().add(score);
-        }
+        User user = userRepository.findById(scoreDTO.getUserId())
+                .orElseThrow(() -> new NotFoundException("User not found with : " + scoreDTO.getUserId()));
+        score.setUser(user);
 
         return new ScoreDTO(scoreRepository.save(score));
     }
@@ -69,7 +63,6 @@ public class ScoreServiceImpl implements ScoreService {
         User user = userRepository.findById(scoreDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + scoreDTO.getId()));
         score.setUser(user);
-        user.getScores().add(score);
 
         return new ScoreDTO(scoreRepository.save(score));
     }

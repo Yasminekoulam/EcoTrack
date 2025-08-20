@@ -48,7 +48,7 @@ public class NotificationServiceImpl implements NotificationService {
                 .orElseThrow(() -> new NotFoundException("User not found with : " + notificationDTO.getUserId()));
 
         notification.setUser(user);
-        user.getNotifications().add(notification);
+
         return new NotificationDTO(notificationRepository.save(notification));
     }
 
@@ -57,8 +57,6 @@ public class NotificationServiceImpl implements NotificationService {
         Notification notification = notificationRepository.findById(notificationDTO.getId())
                 .orElseThrow(() -> new NotFoundException("Notification not found with : " + notificationDTO.getId()));
 
-        User oldUser = notification.getUser();
-        oldUser.getNotifications().remove(notification);
 
         User user = userRepository.findById(notificationDTO.getUserId())
                         .orElseThrow(() -> new NotFoundException("User not found with : " + notificationDTO.getUserId()));
@@ -68,8 +66,6 @@ public class NotificationServiceImpl implements NotificationService {
         notification.setType(notificationDTO.getType());
         notification.setDate(notificationDTO.getDate());
         notification.setContent(notificationDTO.getContent());
-
-        user.getNotifications().add(notification);
 
         return new NotificationDTO(notificationRepository.save(notification));
     }

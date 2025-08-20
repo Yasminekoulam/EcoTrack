@@ -42,14 +42,11 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
 
         activityType.setName(activityTypeDTO.getName());
         activityType.setUnit(activityTypeDTO.getUnit());
-        Category oldCategory = activityType.getCategory();
-        if(!oldCategory.getId().equals(activityTypeDTO.getCategoryId())) {
-            oldCategory.getActivityTypes().remove(activityType);
+
             Category category = categoryRepository.findById(activityTypeDTO.getCategoryId())
                     .orElseThrow(() -> new NotFoundException("Category not found with : " + activityTypeDTO.getCategoryId()));
             activityType.setCategory(category);
-            category.getActivityTypes().add(activityType);
-        }
+
 
 
         return new ActivityTypeDTO(activityTypeRepository.save(activityType));
@@ -62,7 +59,6 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
         Category category = categoryRepository.findById(activityTypeDTO.getCategoryId())
                 .orElseThrow(() -> new NotFoundException("Category not found with : " + activityTypeDTO.getCategoryId()));
         activityType.setCategory(category);
-        category.getActivityTypes().add(activityType);
 
         return new ActivityTypeDTO(activityTypeRepository.save(activityType));
 

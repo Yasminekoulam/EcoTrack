@@ -56,9 +56,6 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
         emissionFactor.setActivityType(activityType);
         emissionFactor.setCountry(country);
 
-        country.getEmissionFactors().add(emissionFactor);
-        activityType.getEmissionFactors().add(emissionFactor);
-
         return new EmissionFactorDTO(emissionFactorRepository.save(emissionFactor));
     }
 
@@ -69,20 +66,13 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
         emissionFactor.setSource(emissionFactorDTO.getSource());
         emissionFactor.setFactor(emissionFactorDTO.getFactor());
 
-        Country oldCountry = emissionFactor.getCountry();
-        oldCountry.getEmissionFactors().remove(emissionFactor);
         Country country = countryRepository.findById(emissionFactorDTO.getCountryId())
                 .orElseThrow(() -> new NotFoundException("Country not found with : " + emissionFactorDTO.getCountryId()));
         emissionFactor.setCountry(country);
 
-        ActivityType oldActivityType = emissionFactor.getActivityType();
-        oldActivityType.getEmissionFactors().remove(emissionFactor);
         ActivityType activityType = activityTypeRepository.findById(emissionFactorDTO.getActivityTypeId())
                 .orElseThrow(() -> new NotFoundException("ActivityType not found with : " + emissionFactorDTO.getActivityTypeId()));
         emissionFactor.setActivityType(activityType);
-
-        country.getEmissionFactors().add(emissionFactor);
-        activityType.getEmissionFactors().add(emissionFactor);
 
         return new EmissionFactorDTO(emissionFactorRepository.save(emissionFactor));
     }

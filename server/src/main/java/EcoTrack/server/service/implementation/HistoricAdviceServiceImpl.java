@@ -53,14 +53,10 @@ public class HistoricAdviceServiceImpl implements HistoricAdviceService {
                 .orElseThrow(() -> new NotFoundException("User not found with : " + historicAdviceDTO.getUserId()));
         historicAdvice.setUser(user);
 
-        Advice oldAdvice = historicAdvice.getAdvice();
-        if(!oldAdvice.getId().equals(historicAdviceDTO.getId())) {
-            oldAdvice.getHistoricAdvice().remove(historicAdvice);
-            Advice advice = adviceRepository.findById(historicAdviceDTO.getAdviceId())
-                    .orElseThrow(() -> new NotFoundException("Advice not found with : " + historicAdviceDTO.getAdviceId()));
-            historicAdvice.setAdvice(advice);
-            advice.getHistoricAdvice().add(historicAdvice);
-        }
+        Advice advice = adviceRepository.findById(historicAdviceDTO.getAdviceId())
+                .orElseThrow(() -> new NotFoundException("Advice not found with : " + historicAdviceDTO.getAdviceId()));
+        historicAdvice.setAdvice(advice);
+
 
         return new HistoricAdviceDTO(historicAdviceRepository.save(historicAdvice));
     }
@@ -75,8 +71,6 @@ public class HistoricAdviceServiceImpl implements HistoricAdviceService {
         User user = userRepository.findById(historicAdviceDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + historicAdviceDTO.getUserId()));
         historicAdvice.setUser(user);
-
-        advice.getHistoricAdvice().add(historicAdvice);
 
         return new HistoricAdviceDTO(historicAdviceRepository.save(historicAdvice));
 

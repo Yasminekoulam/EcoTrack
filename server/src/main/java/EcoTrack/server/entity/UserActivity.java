@@ -37,6 +37,9 @@ public class UserActivity {
     @JoinColumn(name = "activity_type_id", nullable = false)
     private ActivityType activityType;
 
+    @OneToOne(mappedBy = "userActivity", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Score score;
+
     //user-UserActivity
     @ManyToOne
     @JoinColumn(name = "user_id")

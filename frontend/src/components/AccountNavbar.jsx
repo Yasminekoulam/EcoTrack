@@ -39,7 +39,7 @@ const AccountNavbar = () => {
       </div>
 
       {showMenu && (
-        <div className="fixed top-0 left-0 md:flex flex-col text-white bg-green-600 shadow-md h-screen w-40 gap-4 p-2 z-40">
+        <div className="fixed top-0 left-0 flex flex-col text-white bg-green-600 shadow-md h-screen w-40 gap-4 p-2 z-40">
           <div className="flex justify-start cursor-pointer">
             <img
               onClick={() => setShowMenu(false)}
@@ -58,7 +58,16 @@ const AccountNavbar = () => {
           <Link to="/badge">My badge</Link>
           <Link to="/review">Add review</Link>
           <Link to="/settings">Settings</Link>
-          <Link to="/login">Sign out</Link>
+          <button 
+            onClick={() => {
+              localStorage.removeItem("jwtToken");
+              setShowMenu(false);
+              navigate("/login");
+            }}
+            className="text-left"
+          >
+            Sign out
+          </button>
         </div>
       )}
 
@@ -89,9 +98,16 @@ const AccountNavbar = () => {
               <Link to="/myAccount" className="block px-4 py-2 hover:bg-gray-100">
                 Account
               </Link>
-              <Link to="/login" className="block px-4 py-2 hover:bg-gray-100">
+              <button 
+                onClick={() => {
+                  localStorage.removeItem("jwtToken");
+                  setShowProfileMenu(false);
+                  navigate("/login");
+                }}
+                className="block px-4 py-2 hover:bg-gray-100 text-left w-full"
+              >
                 Sign out
-              </Link>
+              </button>
             </div>
           )}
         </div>

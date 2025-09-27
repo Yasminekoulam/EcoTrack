@@ -121,7 +121,7 @@ const AddActivity = () => {
           </div>
 
           <div>
-            <label className="mb-1 block text-orange-600 font-medium">Quantity:</label>
+            <label className="mb-1 block text-orange-600 font-medium">Quantity: Kg, Km,...</label>
             <input
               type="number"
               step="0.1"

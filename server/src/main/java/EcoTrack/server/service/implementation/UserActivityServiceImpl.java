@@ -67,6 +67,11 @@ public class UserActivityServiceImpl implements UserActivityService {
         UserActivity userActivity = userActivityRepository.findById(userActivityDTO.getId())
                 .orElseThrow(() -> new NotFoundException("UserActivity not found with : " + userActivityDTO.getId()));
 
+        userActivity.setQuantity(userActivityDTO.getQuantity());
+        userActivity.setNbrPersonnes(userActivityDTO.getNbrPersonnes());
+        userActivity.setDate(userActivityDTO.getDate());
+
+
         ActivityType activityType = activityTypeRepository.findById(userActivityDTO.getActivityTypeId())
                 .orElseThrow(() -> new NotFoundException("ActivityType not found with : " + userActivityDTO.getActivityTypeId()));
         userActivity.setActivityType(activityType);

@@ -73,7 +73,6 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder='Enter your password'
         />
-
           <button
             type="submit"
             className="bg-orange-400 text-white rounded-lg py-2 mt-2 hover:bg-orange-500 transition-colors"

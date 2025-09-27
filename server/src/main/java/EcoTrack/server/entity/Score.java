@@ -25,7 +25,7 @@ public class Score {
 
     private double totalco2;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "userActivity_id",unique=true)
     private UserActivity userActivity;
 
